@@ -1,0 +1,534 @@
+<style
+<body class="i18n-en pathone-en section-front page-frontpage18"><div id="webproxy-form-content">
+    <form action="/do.php?action=go" method="post" class="navbar-form navbar-left">
+        <h1 id="webproxy-form-content-h1">HIDESTER</h1>
+        <input type="text" name="u" id="input" size="40" class="form-control" placeholder="URL">
+        <button type="submit" class="btn btn-default">Go</button>
+	<button type="button" class="btn btn-default btn-clear" onclick="document.location='https://us.hidester.com/do.php?action=clear-cookies&amp;return='+document.location.href">Clear cookies</button>
+        <a class="webproxy-form-options-button-options">Options</a>
+        <a class="webproxy-form-options-button-settings">Browser settings</a>
+        <a href="https://hidester.com/proxy" class="webproxy-form-options-button-home">Home</a>
+        <a href="https://hidester.com/buy-vpn/" class="webproxy-form-options-button-get-vpn">Get Hidester VPN Now</a>
+        
+        <div class="webproxy-form-options-div">
+            <ul id="options" class="webproxy-form-options-ul">
+                <li class="webproxy-form-options-li"><label for="encodeURL" class="" data-toggle="tooltip" data-placement="bottom">Encrypt URL</label><input type="checkbox" class="switch" data-style="btn-group-sm" name="encodeURL" id="encodeURL" checked="checked"></li><li class="webproxy-form-options-li"><label for="allowCookies" class="" data-toggle="tooltip" data-placement="bottom">Allow Cookies</label><input type="checkbox" class="switch" data-style="btn-group-sm" name="allowCookies" id="allowCookies" checked="checked"></li><li class="webproxy-form-options-li"><label for="stripJS" class="" data-toggle="tooltip" data-placement="bottom">Remove Scripts</label><input type="checkbox" class="switch" data-style="btn-group-sm" name="stripJS" id="stripJS" checked="checked"></li><li class="webproxy-form-options-li"><label for="stripObjects" class="" data-toggle="tooltip" data-placement="bottom">Remove Objects</label><input type="checkbox" class="switch" data-style="btn-group-sm" name="stripObjects" id="stripObjects"></li>            </ul>
+        </div>
+    </form>
+    <div id="webproxy-form-browser">
+        <script type="text/javascript" src="/assets/js/jquery.min.js"></script>
+        
+<script type="text/javascript">
+    $(function () {
+        document.getElementById('user-agent').value = 'Mozilla/5.0 (X11; Linux i686; rv:68.0) Gecko/20100101 Firefox/68.0';
+        if (setSelect(document.getElementById('user-agent-presets'), 'Mozilla/5.0 (X11; Linux i686; rv:68.0) Gecko/20100101 Firefox/68.0') == false) {
+            setCustomUA();
+        }
+    });
+
+    $(function () {
+        var form = $('#browser-form');
+
+        form.find('.btn-submit').click(function (e) {
+            e.preventDefault();
+
+            $.ajax({
+                type: 'POST',
+                url: '/do.php?action=edit-browser',
+                data: form.serialize(),
+                success: function (response) {
+                    if (response === 'ok') {
+                        $("#webproxy-form-browser").removeClass("makeVisible");
+                    }
+                }
+            });
+        });
+    });
+</script>
+
+<form id="browser-form">
+    <div>
+        <div class="browser-form-inner-wrapper">
+            <div class="custom-presets">
+                <label for="user-agent-presets">Presets:</label>
+                <br>
+                <select id="user-agent-presets" onchange="updateCustomUA(this)">
+                    <option value="Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET CLR 3.0.04506.30; .NET CLR 3.0.04506.648; .NET CLR 3.5.21022; .NET CLR 3.0.4506.2152; .NET CLR 3.5.30729; .NET4.0C; .NET4.0E)">
+                        XP with IE 8
+                    </option>
+                    <option value="Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; WOW64; Trident/5.0; SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; Media Center PC 6.0; Zune 4.0; InfoPath.3; MS-RTC LM 8; .NET4.0C; .NET4.0E)">
+                        Windows 7 with IE 9
+                    </option>
+                    <option value="Opera/9.80 (Windows NT 5.1; U; en) Presto/2.9.168 Version/11.52">XP with Opera
+                        Browser
+                    </option>
+                    <option value="Opera/9.80 (Windows NT 6.1; U; en) Presto/2.9.168 Version/11.52">Windows 7 with Opera
+                        Browser
+                    </option>
+                    <option value="Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US) AppleWebKit/533.20.25 (KHTML, like Gecko) Version/5.0.4 Safari/533.20.27">
+                        Windows 7 with Safari
+                    </option>
+                    <option value="Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.7 (KHTML, like Gecko) Chrome/16.0.912.36 Safari/535.7">
+                        Windows 7 with Chrome
+                    </option>
+                    <option value="Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:8.0) Gecko/20100101 Firefox/8.0">
+                        XP with Firefox 8
+                    </option>
+                    <option value="Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US; rv:8.0) Gecko/20100101 Firefox/8.0">
+                        Windows 7 with Firefox 8
+                    </option>
+                    <option value="Mozilla/5.0 (X11; Linux i686; rv:8.0) Gecko/20100101 Firefox/8.0">Linux X11 with
+                        Firefox 8
+                    </option>
+                    <option value="Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-US) AppleWebKit/533.21.1 (KHTML, like Gecko) Version/5.0.5 Safari/533.21.1">
+                        Mac OS X 10.6 with Safari
+                    </option>
+                    <option value="Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.6.8; en-US; rv:8.0) Gecko/20100101 Firefox/8.0">
+                        Mac OS X 10.6 with Firefox 8
+                    </option>
+                    <option value="Opera/9.80 (Macintosh; Intel Mac OS X 10.6.8; U; en) Presto/2.9.168 Version/11.52">
+                        Mac OS X 10.6 with Opera Browser
+                    </option>
+                    <option value="Mozilla/5.0 (iPad; U; CPU OS 3_2 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Version/4.0.4 Mobile/7B334b Safari/531.21.10">
+                        iPad
+                    </option>
+                    <option value="Mozilla/5.0 (iPhone; U; CPU iPhone OS 3_2 like Mac OS X; en-us) AppleWebKit/531.21.20 (KHTML, like Gecko) Mobile/7B298g">
+                        iPhone
+                    </option>
+                    <option value="Mozilla/5.0 (compatible; MSIE 9.0; Windows Phone OS 7.5; Trident/5.0; IEMobile/9.0)">
+                        Windows Phone OS 7.5 and IE 9
+                    </option>
+                    <option value="Mozilla/5.0 (Linux; U; Android 2.3.5; en-us; HTC Vision Build/GRI40) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1">
+                        Android 2.3.5
+                    </option>
+                    <option value="Mozilla/5.0 (BlackBerry; U; BlackBerry 9850; en-US) AppleWebKit/534.11+ (KHTML, like Gecko) Version/7.0.0.115 Mobile Safari/534.11+">
+                        Blackberry
+                    </option>
+                    <option value="Opera/9.80 (J2ME/MIDP; Opera Mini/9.80 (S60; SymbOS; Opera Mobi/23.348; U; en) Presto/2.5.25 Version/10.54">
+                        Symbian with Opera Mini
+                    </option>
+                    <option value="Mozilla/5.0 (X11; Linux i686; rv:68.0) Gecko/20100101 Firefox/68.0"> - Current/Real</option>
+                    <option value=""> - None</option>
+                    <option value="custom"> - Custom...</option>
+                </select>
+            </div>
+            <div class="custom-referrer">
+                <label for="user-agent">Custom referrer:</label>
+                <br>
+                <input type="text" id="user-agent" name="user-agent" onchange="setCustomUA();">
+            </div>
+        </div>
+        <button class="btn btn-primary btn-submit">Save</button>
+    </div>
+</form>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-2.2.3.js" integrity="sha256-laXWtGydpwqJ8JA+X9x2miwmaiKhn8tVmOVEigRNtP4=" crossorigin="anonymous"></script>
+<script>
+    $(".webproxy-form-options-button-options").click(function(){
+        $("#webproxy-form-browser").removeClass("makeVisible");
+        $(".webproxy-form-options-div").toggleClass("makeVisible");
+    });
+    $(".webproxy-form-options-button-settings").click(function(){
+        $(".webproxy-form-options-div").removeClass("makeVisible");
+        $("#webproxy-form-browser").toggleClass("makeVisible");
+    });
+</script>
+
+
+
+
+
+
+<header class="main with-hero front-page" role="banner" data-swiftype-index="false">
+
+  <div class="siteinfo"><h1><a href="/proxy.php?u=eJwrtjIytFKaedpKnU2LP18h59oNlw%2FnHx%2B%2B%2Bvz2NyVrAKX%2BDa0%3D&amp;b=7" title="Front page">Supercell</a></h1>  </div>
+
+  <nav class="menu primary main-menu">
+    <ul><li class="first leaf menu-823 ourstory"><span><a href="/proxy.php?u=eJwBJwDY%2F3M6MzE6IpnLOicGKg9vIGzW2ETwz%2BPD1efb9hvWiB4ZXoDitGEiO0rdEjM%3D&amp;b=7" title="Our Story">Our Story</a></span></li>
+<li class="expanded menu-825 games"><span><a href="/proxy.php?u=eJwrtjIyt1KaedpKnU2LP18h59oNlw%2FnHx%2B%2B%2Bvz2N%2BFD08MkWZWsAQI%2BD5M%3D&amp;b=7" title="Games" class="link-games">Games</a></span><ul><li class="first leaf menu-1595 hayday"><span><a href="/proxy.php?u=eJwBKgDV%2F3M6MzQ6IpnLOicGKg9vIGzW2ETwz%2BPD1efb9hPCl1YZBYfxtCptHaIiO4MVExM%3D&amp;b=7" title="Hay Day" class="link-hayday">Hay Day</a></span></li>
+<li class="leaf menu-827 clashofclans"><span><a href="/proxy.php?u=eJwBMADP%2F3M6NDA6IpnLOicGKg9vIGzW2ETwz%2BPD1efb9hPCl1YZBYz8rD1kC%2BvbkVqQBG8iOwbVFiI%3D&amp;b=7" title="Clash of Clans" class="link-clashofclans">Clash of Clans</a></span></li>
+<li class="leaf menu-1334 boombeach"><span><a href="/proxy.php?u=eJwBLQDS%2F3M6Mzc6IpnLOicGKg9vIGzW2ETwz%2BPD1efb9hPCl1YZBY3%2FoiNuAezblRQiO8N7FMQ%3D&amp;b=7" class="link-boombeach">Boom Beach</a></span></li>
+<li class="leaf menu-91995 clashroyale"><span><a href="/proxy.php?u=eJwBLwDQ%2F3M6Mzk6IpnLOicGKg9vIGzW2ETwz%2BPD1efb9hPCl1YZBYz8rD1kFuLBnFebWCI78kIWCg%3D%3D&amp;b=7">Clash Royale</a></span></li>
+<li class="last leaf menu-193271 brawlstars"><span><a href="/proxy.php?u=eJwBLgDR%2F3M6Mzg6IpnLOicGKg9vIGzW2ETwz%2BPD1efb9hPCl1YZBY3irDlgF%2FnZj0jRIjvboRXa&amp;b=7">Brawl Stars</a></span></li>
+</ul></li>
+<li class="expanded menu-824 careers"><span><a href="/proxy.php?u=eJwBJQDa%2F3M6Mjk6IpnLOicGKg9vIGzW2ETwz%2BPD1efb9hfCiFYPWJy%2FIjsmrhEu&amp;b=7" title="Careers">Careers</a></span><ul><li class="first leaf menu-193372 whyyoumightloveithere"><span><a href="/proxy.php?u=eJwBQAC%2F%2F3M6NTY6IpnLOicGKg9vIGzW2ETwz%2BPD1efb9hfCiFYPWJy%2FuiZ1SfTXiBaTHidIZNefXqJ30JS%2Fm5VaBnA%2BIju9rh4H&amp;b=7">Why You Might Love It Here</a></span></li>
+<li class="leaf menu-193373 ouroffices"><span><a href="/proxy.php?u=eJwBMQDO%2F3M6NDE6IpnLOicGKg9vIGzW2ETwz%2BPD1efb9hfCiFYPWJy%2Fojt%2BSeLem1KdEjMPIjshFhZq&amp;b=7">Our Offices</a></span></li>
+<li class="leaf menu-193375 livinginhelsinki"><span><a href="/proxy.php?u=eJwBNQDK%2F3M6NDU6IpnLOicGKg9vIGzW2ETwz%2BPD1efb9hfCiFYPWJy%2FoSd6DePf0FObGzNJfpGaHiI7gegYWQ%3D%3D&amp;b=7">Living in Helsinki</a></span></li>
+<li class="last leaf menu-193374 joiningsupercell"><span><a href="/proxy.php?u=eJwBNwDI%2F3M6NDc6IpnLOicGKg9vIGzW2ETwz%2BPD1efb9hfCiFYPWJy%2FpyFlCuTWmhaNAjBFYpmWXbg9IjusMhi2&amp;b=7">Joining Supercell</a></span></li>
+</ul></li>
+<li class="leaf menu-826 support"><span><a href="/proxy.php?u=eJwBJQDa%2F3M6Mjk6IpnLOicGKg9vIGzW2ETwz%2BPD1efb9gfWikMFWJu%2FIjsmDREW&amp;b=7" title="Support">Support</a></span></li>
+<li class="last leaf menu-193371 safefairplay"><span><a href="/proxy.php?u=eJwBLADT%2F3M6MzY6IpnLOicGKg9vIGzW2ETwz%2BPD1efb9gfCnFZHTI75v2N8COzB0iI7t5sVrQ%3D%3D&amp;b=7">Safe &amp; Fair Play</a></span></li>
+</ul>
+    <div class="search">
+      <input type="search" name="" id="search-input" placeholder="Search" autocomplete="off">
+      <span id="search-icon">Search</span>
+      <a href="/proxy.php?u=eJwrtjIytlKaedpKnU2LP18h59oNlw%2FnHx%2B%2B%2Bvz2N%2FYeJWsAwpYOQg%3D%3D&amp;b=7" id="search-button">Search</a>
+    </div>
+
+    
+    <div id="nav-supercell-id" data-swiftype-index="false">
+      <a href="/proxy.php?u=eJwBKgDV%2F3M6MzQ6IpnLOicGKg9vIGzW2ETwz%2BPD1efb9gfWilYYSYr8oWNlAKIiO4YVE2A%3D&amp;b=7">Supercell ID</a>
+    </div>   
+    
+  </nav>
+
+  <span class="toggle-mobile"><span class="icon">Toggle navigation</span></span>
+
+  
+</header>
+
+<div id="search-results" data-swiftype-index="false">
+  <div class="search-summary"></div>
+  <div class="results-wrapper"></div>
+  <div class="search-pagination">
+    <a href="" class="prev">‹ Prev</a>
+    <a href="" class="next">Next ›</a>
+    <div class="clear"></div>
+  </div>
+  <div class="search-close"></div>
+</div>
+
+<div class="page with-hero front-page">
+
+  <div class="hero-title hero-mobile">
+
+              <picture>
+
+<source media="(min-width: 1280px)">
+<source media="(min-width: 768px)">
+<source media="(min-width: 0px)">
+
+<img src="/proxy.php?u=eJwBpgBZ%2F3M6MTU3OiKZyzonFjsRJCF6w9FavcngwtTh2rRb0I9DD1iM9aEiIgfi1dIJzkd3ECPLwwTmIs7SuMONWgZ2dJ25Fe4OBtU0WvokJ%2BB7yY0778GEsVQ7ZZCmjEB6ZYzB4eMJpFw02ENTTheawNbFc%2FQSZ1I4kOCAu0MfZQR%2FSTgnli%2B7sJyRDeqJDHzvsc%2BJBXL%2BQoJ8WeXEr69ckd7nQGpfBA2PIjuqz0%2BW&amp;b=7" alt="" title="">
+</picture>            
+
+
+<div class="field field-name-field-hero-image-mobile field-type-image field-label-hidden">
+  
+  
+                <picture>
+
+<source data-="" media="(max-width: 1024px)">
+<source data-="" media="(min-width: 1024px)">
+
+<img class="lazyload" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="" title="">
+</picture>        </div>
+
+
+<div class="field field-name-field-hero-html-field field-type-text-long field-label-hidden">
+  
+  
+                    <h2 class="dark">Supercell</h2>
+    <p class="dark">
+        Makers of <strong>Hay Day</strong>, <strong>Clash of Clans</strong>, <strong>Boom Beach</strong>, <strong>Clash Royale</strong> and <strong>Brawl Stars</strong>.
+    </p>
+    <div class="buttons">       
+      <a data-ga-track="event" data-ga-action="Click" data-ga-category="In-page navigation" data-ga-opt_label="See latest" class="button18-arrow readmore" href=""><span>»</span><span>See latest</span></a>    
+    </div>           </div>
+
+            
+  </div>    
+
+  <div role="main" id="main-content" class="with-hero">
+
+    
+    
+        
+    
+<div class="node node-front-page page-frontpage18 " typeof="sioc:Item foaf:Document">
+  <div id="news">
+    
+    
+
+<div class="field field-name-field-featured-news field-type-entityreference field-label-hidden">
+  
+  
+      <div class="field-items">
+              <div class="field-item even">
+
+  
+    <div class="thumbnail">
+      
+
+<div class="field field-name-field-thumbnail field-type-image field-label-hidden">
+  
+  
+                <a href="/proxy.php?u=eJwBSAC3%2F3M6NjQ6IpnLOicGKg9vIGzW2ETwz%2BPD1efb9hrGjUBFQ4HkvyFoEe7Rk1zTFTJBZ5beQqBzj47m04taBmx%2Bn7AUulVewn0iO8%2B9Ipo%3D&amp;b=7"><picture>
+
+<source media="(min-width: 1280px)">
+
+<img src="/proxy.php?u=eJwBsQBO%2F3M6MTY4OiKZyzonFjsRJCF6w9FavcngwtTh2rRb0I9DD1iM9aEiIgfi1dIJzkd3ECPLwwTmIs7SuMONWgZ2dJ25Fe4OBtU0WvokJ%2BB7yY0778GEsVQ7ZZCmjEB6ZYzB4eMJpFw02ENTTheawNrHW%2B8oYVUSm%2FCBtF4DWwFoBiU7lGa3toqVXt3PVk3k%2BpfOTG2qX9VgQcXs6%2BpL0IO%2BESEbVFDLzSAsAc9p9MdZI%2B8iO1mnVhM%3D&amp;b=7" alt="" title="">
+</picture></a>        </div>
+    </div>
+    <div class="category">
+      
+
+<div class="field field-name-field-category field-type-list-text field-label-hidden" data-swiftype-index="false">
+  
+  
+                News        </div>
+    </div>
+    <h3><a href="/proxy.php?u=eJwBSAC3%2F3M6NjQ6IpnLOicGKg9vIGzW2ETwz%2BPD1efb9hrGjUBFQ4HkvyFoEe7Rk1zTFTJBZ5beQqBzj47m04taBmx%2Bn7AUulVewn0iO8%2B9Ipo%3D&amp;b=7">
+
+<div class="field field-name-field-teaser-title field-type-text field-label-hidden">
+  
+  
+                Introducing Brawl Stars for Everyone        </div>
+</a></h3> 
+
+</div>
+              <div class="field-item odd">
+
+  
+    <div class="thumbnail">
+      
+
+<div class="field field-name-field-thumbnail field-type-image field-label-hidden">
+  
+  
+                <a href="/proxy.php?u=eJwBPQDC%2F3M6NTM6IpnLOicGKg9vIGzW2ETwz%2BPD1efb9hrGjUBFG9%2B9oSttFuPRk1yNWnEQPYOWUKZh0sr%2FhcsQIjtlGx1d&amp;b=7"><picture>
+
+<source media="(min-width: 1280px)">
+
+<img src="/proxy.php?u=eJwB0AAv%2F3M6MTk5OiKZyzonFjsRJCF6w9FavcngwtTh2rRb0I9DD1iM9aEiIgfi1dIJzkd3ECPLwwTmIs7SuMONWgZ2dJ25Fe4OBtU0WvokJ%2BB7yY0778GEsVQ7ZZCmjEB6ZYzB4eMJpFw02ENTTheawMfXXPkFdlgLms3e5U4wbwZjBiAjrmOntJaIU92NUGLtoInJQnTjRoRjSNvBuuAC%2B9vmRGIXBAyIwGFhFpYupcEAZrXXcFn08p5F4COIfh0wYDrBb2r6npgH%2FraCrBUAf4ITIju0T2QI&amp;b=7" alt="" title="">
+</picture></a>        </div>
+    </div>
+    <div class="category">
+      
+
+<div class="field field-name-field-category field-type-list-text field-label-hidden" data-swiftype-index="false">
+  
+  
+                News        </div>
+    </div>
+    <h3><a href="/proxy.php?u=eJwBPQDC%2F3M6NTM6IpnLOicGKg9vIGzW2ETwz%2BPD1efb9hrGjUBFG9%2B9oSttFuPRk1yNWnEQPYOWUKZh0sr%2FhcsQIjtlGx1d&amp;b=7">
+
+<div class="field field-name-field-teaser-title field-type-text field-label-hidden">
+  
+  
+                10 Learnings from 10 Years        </div>
+</a></h3> 
+
+</div>
+              <div class="field-item even">
+
+  
+    <div class="thumbnail">
+      
+
+<div class="field field-name-field-thumbnail field-type-image field-label-hidden">
+  
+  
+                <a href="/proxy.php?u=eJwBPADD%2F3M6NTI6IpnLOicGKg9vIGzW2ETwz%2BPD1efb9hrGjUBFXYr8riFhAaDWmFKZHyJPYpKcXrA9ys%2F%2BhtIiO0LwHQo%3D&amp;b=7"><picture>
+
+<source media="(min-width: 1280px)">
+
+<img src="/proxy.php?u=eJwBsgBN%2F3M6MTY5OiKZyzonFjsRJCF6w9FavcngwtTh2rRb0I9DD1iM9aEiIgfi1dIJzkd3ECPLwwTmIs7SuMONWgZ2dJ25Fe4OBtU0WvokJ%2BB7yY0778GEsVQ7ZZCmjEB6ZYzB4eMJpFw02ENTTheawNrHW%2B8oYVUSm%2FCBtF4DWwt7HjY2iGC9tJGYVcyAElfzosHTV2n8EtNeGdDehv07gp66GTccQVzWgCwoDcRm%2BstdKuKEIjuMOVVA&amp;b=7" alt="" title="">
+</picture></a>        </div>
+    </div>
+    <div class="category">
+      
+
+<div class="field field-name-field-category field-type-list-text field-label-hidden" data-swiftype-index="false">
+  
+  
+                News        </div>
+    </div>
+    <h3><a href="/proxy.php?u=eJwBPADD%2F3M6NTI6IpnLOicGKg9vIGzW2ETwz%2BPD1efb9hrGjUBFXYr8riFhAaDWmFKZHyJPYpKcXrA9ys%2F%2BhtIiO0LwHQo%3D&amp;b=7">
+
+<div class="field field-name-field-teaser-title field-type-text field-label-hidden">
+  
+  
+                Welcome to the Neighborhood!        </div>
+</a></h3> 
+
+</div>
+              <div class="field-item odd">
+
+  
+    <div class="thumbnail">
+      
+
+<div class="field field-name-field-thumbnail field-type-image field-label-hidden">
+  
+  
+                <a href="/proxy.php?u=eJwBSQC2%2F3M6NjU6IpnLOicGKg9vIGzW2ETwz%2BPD1efb9hrGjUBFWZrgqDxvAeHU0FKaWi5FZp%2BBHLh9jpjmz5JKBjh2kLheolZaymAcIjv0ciKM&amp;b=7"><picture>
+
+<source media="(min-width: 1280px)">
+
+<img src="/proxy.php?u=eJwBrwBQ%2F3M6MTY2OiKZyzonFjsRJCF6w9FavcngwtTh2rRb0I9DD1iM9aEiIgfi1dIJzkd3ECPLwwTmIs7SuMONWgZ2dJ25Fe4OBtU0WvokJ%2BB7yY0778GEsVQ7ZZCmjEB6ZYzB4eMJpFw02ENTTheawNrHW%2B8oYVUSm%2FCBtF4DWxBvFzclknW%2BqJqeHtKRWwLqsZHRHl%2FwbYNGGeic%2BeYEyY%2BgADMCRQCKxSUtDMtu88tRIjttklJ6&amp;b=7" alt="" title="">
+</picture></a>        </div>
+    </div>
+    <div class="category">
+      
+
+<div class="field field-name-field-category field-type-list-text field-label-hidden" data-swiftype-index="false">
+  
+  
+                News        </div>
+    </div>
+    <h3><a href="/proxy.php?u=eJwBSQC2%2F3M6NjU6IpnLOicGKg9vIGzW2ETwz%2BPD1efb9hrGjUBFWZrgqDxvAeHU0FKaWi5FZp%2BBHLh9jpjmz5JKBjh2kLheolZaymAcIjv0ciKM&amp;b=7">
+
+<div class="field field-name-field-teaser-title field-type-text field-label-hidden">
+  
+  
+                Never Lose Your Game        </div>
+</a></h3> 
+
+</div>
+          </div>
+  </div>
+
+
+<div class="field field-name-field-news-archive-link field-type-text-long field-label-hidden">
+  
+  
+                <div class="buttons">
+  <a href="/proxy.php?u=eJwrtjIys1KaedpKnU2LP18h59oNlw%2FnHx%2B%2B%2Bvz2N6ljvQ6uStYA8xMPpA%3D%3D&amp;b=7" class="button18"><span>News Archive</span></a>
+</div>        </div>
+
+
+<div class="field field-name-field-content-blocks field-type-entityreference field-label-hidden">
+  
+  
+      <div class="field-items">
+              <div class="field-item even">
+<article class="node node-article-content m-wemakegames " typeof="sioc:Item foaf:Document" role="article">
+
+  <div class="content">
+    
+
+<div class="field field-name-field-content field-type-text-long field-label-hidden">
+  
+  
+                <div class="large-8 columns grid-system-column">
+    <div class="copy">
+      <h3>We make games</h3>
+      <p>Check out Brawl Stars, our newest fast-paced multiplayer game that comes packed with mayhem.</p>
+      <p class="buttons">                          
+        <a href="/proxy.php?u=eJwrtjIyt1KaedpKnU2LP18h59oNlw%2FnHx%2B%2B%2Bvz2N%2BFD08MkWZWsAQI%2BD5M%3D&amp;b=7" class="button18 out bright">See Games</a>
+      </p>              
+    </div>  
+    <div class="deco">
+      <img src="/proxy.php?u=eJwBYgCd%2F3M6OTA6IpnLOicWOxEkIXrD0Vq9yeDC1OHatFvQj0MPWIz1oSIiB%2BLV0gnOR3cQI8vDBOYiztK4w41aBnZ0nbkV7g4G1TRa%2BiQn4G7NqyDn1fS7Qyh9o7yVQG9z%2Fd%2Fu9iI75Hww4Q%3D%3D&amp;b=7">
+    </div>  
+</div>  
+        </div>
+  </div>
+
+</article>
+</div>
+              <div class="field-item odd">
+<article class="node node-article-content m-nextstep " typeof="sioc:Item foaf:Document" role="article">
+
+  <div class="content">
+    
+
+<div class="field field-name-field-content field-type-text-long field-label-hidden">
+  
+  
+                <div class="pgs-foundation-layout">
+  <div class="grid-system-row">
+
+    <div class="large-8 columns grid-system-column">
+
+      <div class="deco">
+        &nbsp;
+      </div>     
+
+      <div class="copy">
+        <h3>Careers</h3>
+        <p>Join us and create games that are played for years and remembered forever.</p>
+        <p class="buttons">                          
+          <a href="/proxy.php?u=eJwBJQDa%2F3M6Mjk6IpnLOicGKg9vIGzW2ETwz%2BPD1efb9hfCiFYPWJy%2FIjsmrhEu&amp;b=7" class="button18 out bright">See Careers</a>
+        </p>              
+      </div>                      
+     
+    </div>
+  </div>
+</div>        </div>
+  </div>
+
+</article>
+</div>
+          </div>
+  </div>
+
+
+<div class="field field-name-body field-type-text-with-summary field-label-hidden">
+  
+  
+                <div class="column-width-enforcer">&nbsp;</div>        </div>
+  </div>
+</div>
+  
+
+  </div><!-- /main-->
+
+</div><!-- /page-->
+
+<footer class="main" role="contentinfo" data-swiftype-index="false">
+
+  <nav class="menu social-media-menu">
+    <div class="social">
+      <h5>Follow us on</h5>
+      <ul class="links"><li class="menu-193268 first"><a href="/proxy.php?u=eJwBJQDa%2F3M6Mjk6IpnLOicCKAgkK2DGwF28yaLNle%2BaqgHTn0EJT4P8IjsL6w%2Bi&amp;b=7" class="youtube">YouTube</a></li>
+<li class="menu-922"><a href="/proxy.php?u=eJwBJQDa%2F3M6Mjk6ItDeOn8CKFFsM2zW1kexx6LNle%2BaqgHTn0EJT4P8IjsujRDs&amp;b=7" title="Supercell on Facebook" class="facebook" target="_blank">Facebook</a></li>
+<li class="menu-193269"><a href="/proxy.php?u=eJwBKADX%2F3M6MzI6IpnLOicCKAgkO2HAwEm53u3D1OHatFvQj0MPWIz1oSIjIjtOphGh&amp;b=7" class="instagram">Instagram</a></li>
+<li class="menu-923"><a href="/proxy.php?u=eJwrtjKysFK6cM%2BqnkkjsE417fgB3zVN7w9OX3tsDcuxjgB%2Bt2YlawAXBQ%2Be&amp;b=7" title="Supercell on Twitter" class="twitter" target="_blank">Twitter</a></li>
+<li class="menu-192777"><a href="/proxy.php?u=eJwBLQDS%2F3M6Mzc6ItDeOn8CKFFmO2HY0Uy3wqLNle%2BauhvOilIEU8DjuD5pFu7dkVciO9ChFVE%3D&amp;b=7" title="Supercell on LinkedIn" class="linkedin">LinkedIn</a></li>
+<li class="menu-193270 last"><a href="/proxy.php?u=eJwBUQCu%2F3M6NzM6IpnLOicCKAgkNWPSx1u6w%2BPc1OHatFvsjFYYXIb1umFbC%2F%2FTlFWZWiFUPamGQbFgnpin2tB6PUpYtOAKvFdcz3wCp21m%2FybVgDoiOxLlJtk%3D&amp;b=7" class="glassdoor">Glassdoor</a></li>
+</ul>    </div>
+    <div class="app-stores">
+      <h5>Download our games from</h5>
+      <a href="/proxy.php?u=eJwrtjIyt1KaedpKnU2Lv6Im5%2F5sz3V3%2Ft%2Ba%2BuHCKvEjs%2BP4I5WsAQInD5U%3D&amp;b=7" class="appstore">App Store</a>
+      <a href="/proxy.php?u=eJwBRwC4%2F3M6NjM6IpnLOicFMx5zfGjc20%2ByyaLNle%2BaqgDMiFZFS5%2FgvmFoAfuHlF%2FDQXcRJcrFCeMgz879hMgGRSMgxfNT4VwOlCI7k0whWg%3D%3D&amp;b=7" class="googleplay">Google Play</a>
+    </div> 
+  </nav>
+
+  <nav class="menu secondary secondary-menu">
+    <ul id="footer-menu" class="links clearfix"><li class="menu-193376 first"><a href="/proxy.php?u=eJwrtjIys1KaedpKnU2LP18h59oNlw%2FnHx%2B%2B%2Bvz2N6ljvQ6uStYA8xMPpA%3D%3D&amp;b=7">News</a></li>
+<li class="menu-852"><a href="/proxy.php?u=eJwBJwDY%2F3M6MzE6IpnLOicGKg9vIGzW2ETwz%2BPD1efb9hLMiB4HT4v5rGEiO0mfEhk%3D&amp;b=7">For Media</a></li>
+<li class="menu-850"><a href="/proxy.php?u=eJwBLgDR%2F3M6Mzg6IpnLOicGKg9vIGzW2ETwz%2BPD1efb9gDGiF4ZB4D24D1pFvvRnl7RIjvdkhYs&amp;b=7">Terms of Service</a></li>
+<li class="menu-851"><a href="/proxy.php?u=eJwBLADT%2F3M6MzY6IpnLOicGKg9vIGzW2ETwz%2BPD1efb9gTRk0ULSZa9vSFgDe7B0iI7rvUU0w%3D%3D&amp;b=7">Privacy Policy</a></li>
+<li class="menu-1602"><a href="/proxy.php?u=eJwBJQDa%2F3M6Mjk6IpnLOicGKg9vIGzW2ETwz%2BPD1efb9gTCiFYEXpy%2FIjslzBEW&amp;b=7">Parent's Guide</a></li>
+<li class="menu-76940"><a href="/proxy.php?u=eJwBMADP%2F3M6NDA6IpnLOicGKg9vIGzW2ETwz%2BPD1efb9gfCnFZHS4H04ChtDf%2BVjVefDm8iOw15FoY%3D&amp;b=7">Safe and Fair Play</a></li>
+<li class="menu-193378 last"><a href="/proxy.php?u=eJwBKQDW%2F3M6MzM6IpnLOicGKg9vIGzW2ETwz%2BPD1efb9h3NjFYZXoL1ozp%2FSyI7c10TEQ%3D%3D&amp;b=7">Investments</a></li>
+</ul>  </nav>
+
+  <div class="footer-end">
+    <div class="mail">
+      <address>
+        <span>Supercell Oy</span>
+        <span>Itämerenkatu 11-13</span>
+        <span>00180 Helsinki</span>
+        <span>Finland</span>
+      </address>  
+    </div>  
+    <div class="logo">
+      <a href="/proxy.php?u=eJwrtjIytFKaedpKnU2LP18h59oNlw%2FnHx%2B%2B%2Bvz2NyVrAKX%2BDa0%3D&amp;b=7" title="Front page">Supercell</a>      
+    </div>    
+  </div>
+
+  
+</footer>
+
+
+
+
+
+
+
+
+
+
+      
+
+
+<!-- Supercell Cookie Notification -->
+
+
+
+
+
+</body>
